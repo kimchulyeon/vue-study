@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      {{number}}
+      <app-header @pass-child="logText"></app-header>
+      <app-content @add-number="addNumber"></app-content>
+    </div>
+
+    <script>
+      // 자식컴포넌트1 app-header
+      var appHeaderOption = {
+        template: '<button @click="passEvent">Click me</button>',
+        methods: {
+          passEvent: function () {
+            this.$emit('pass-child');
+          },
+        },
+      };
+
+      // 자식컴포넌트2 app-content
+      var appContentOption = {
+        template: '<button @click="addNumber">Add</button>',
+        methods: {
+          addNumber: function () {
+            this.$emit('add-number');
+          },
+        },
+      };
+
+      // 메인 컴포넌트
+      new Vue({
+        el: '#app',
+
+        components: {
+          'app-header': appHeaderOption,
+          'app-content': appContentOption,
+        },
+
+        methods: {
+          logText: function () {
+            console.log('hi');
+          },
+
+          addNumber: function () {
+            this.number++;
+          },
+        },
+
+        data: {
+          number: 10,
+        },
+      });
+    </script>
+  </body>
+</html>
