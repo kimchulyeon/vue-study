@@ -10,10 +10,41 @@
     <title>Document</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div>
+        <router-link to="/login">Login</router-link>
+        <router-link to="/main">Main</router-link>
+      </div>
+      <router-view></router-view>
+    </div>
 
     <script>
-      var router = new VueRouter({})
+      var LoginComponent = {
+        template: '<div>Login</div>',
+      }
+      var MainComponent = {
+        template: '<div>main</div>',
+      }
+
+      // 라우터
+      var router = new VueRouter({
+        mode: 'history',
+        // 페이지의 라우팅 정보가 들어간다
+        routes: [
+          // LOGIN
+          {
+            // 페이지의 URL
+            path: '/login',
+            // 해당 URL에서 표시될 컴포넌트
+            component: LoginComponent,
+          },
+          // MAIN
+          {
+            path: '/main',
+            component: MainComponent,
+          },
+        ],
+      })
 
       new Vue({
         el: '#app',
